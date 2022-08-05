@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>C++函数参数匹配 | yucongxing</title>
+  <meta name="description" content="C++ 函数参数匹配  单个参数匹配 123456789void f();                   &#x2F;&#x2F;f1void f(int);                &#x2F;&#x2F;f2void f(int, int);           &#x2F;&#x2F;f3void f(double, double&#x3D;3.14);&#x2F;&#x2F;f4int main() &amp;#123;    f(5.6);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++函数参数匹配">
+<meta property="og:url" content="http://yujianwuyou.ltd/2021/11/08/62973a26.html">
+<meta property="og:site_name" content="yucongxing">
+<meta property="og:description" content="C++ 函数参数匹配  单个参数匹配 123456789void f();                   &#x2F;&#x2F;f1void f(int);                &#x2F;&#x2F;f2void f(int, int);           &#x2F;&#x2F;f3void f(double, double&#x3D;3.14);&#x2F;&#x2F;f4int main() &amp;#123;    f(5.6);">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-08T12:27:14.000Z">
+<meta property="article:modified_time" content="2021-11-12T10:11:55.817Z">
+<meta property="article:author" content="yucongxing">
+<meta property="article:tag" content="C++ Primer">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://yujianwuyou.ltd/2021/11/08/62973a26.html">
+  
+    <link rel="alternate" href="/atom.xml" title="yucongxing" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/yyyy.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/yucongxing" target="_blank">
+          <img class="img-circle img-rotate" src="/images/basketball.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郁聪兴</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Artificial Intelligence &amp; C Plus Plus</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">Books</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yucongxing" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/" rel="tag">C++ Primer</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C-Primer/" style="font-size: 14px;">C++ Primer</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 13px;">计算机组成原理</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/12/cd504759.html" class="title">Classes</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-12T10:07:02.000Z" itemprop="datePublished">2021-11-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/08/62973a26.html" class="title">C++函数参数匹配</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-08T12:27:14.000Z" itemprop="datePublished">2021-11-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/17/7f722911.html" class="title">如何使用hexo发布一篇博客？</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-17T07:04:15.000Z" itemprop="datePublished">2021-10-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/03/8d4b7ae1.html" class="title">计算机组成原理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-03T13:00:45.000Z" itemprop="datePublished">2021-03-03</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#c-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%8C%B9%E9%85%8D"><span class="toc-number">1.</span> <span class="toc-text"> C++ 函数参数匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%B8%AA%E5%8F%82%E6%95%B0%E5%8C%B9%E9%85%8D"><span class="toc-number">1.1.</span> <span class="toc-text"> 单个参数匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E5%8F%82%E6%95%B0%E5%8C%B9%E9%85%8D"><span class="toc-number">1.2.</span> <span class="toc-text"> 多个参数匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.</span> <span class="toc-text"> 参数类型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#promotion-and-arithmetic-conversion"><span class="toc-number">1.3.1.</span> <span class="toc-text"> Promotion and Arithmetic Conversion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const-arguments"><span class="toc-number">1.3.2.</span> <span class="toc-text"> const Arguments</span></a></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-C-函数参数匹配" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++函数参数匹配
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/08/62973a26.html" class="article-date">
+	  <time datetime="2021-11-08T12:27:14.000Z" itemprop="datePublished">2021-11-08</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/C-Primer/" rel="tag">C++ Primer</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/08/62973a26.html#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 567(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 2(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="c-函数参数匹配"><a class="markdownIt-Anchor" href="#c-函数参数匹配"></a> C++ 函数参数匹配</h1>
+<h2 id="单个参数匹配"><a class="markdownIt-Anchor" href="#单个参数匹配"></a> 单个参数匹配</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>;                   <span class="comment">//f1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>)</span></span>;                <span class="comment">//f2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;           <span class="comment">//f3</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">double</span>, <span class="keyword">double</span>=<span class="number">3.14</span>)</span></span>;<span class="comment">//f4</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    f(<span class="number">5.6</span>);                 <span class="comment">//调用f4</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>candidate functions:函数名称相同(f1, f2, f3, f4 都是)。</p>
+<p>viable functions:参数个数相同(排除f1, f3)，且参数可以转换成相同类型(f2, f4都是viable function)。如果不存在viable functions，则编译器报参数不匹配错误（可以通过linting检查）。</p>
+<p>最后决定参数类型是否匹配，如果匹配优先调用，不能则选择可以隐式转换成类型相同的函数。</p>
+<h2 id="多个参数匹配"><a class="markdownIt-Anchor" href="#多个参数匹配"></a> 多个参数匹配</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>;                   <span class="comment">//f1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>)</span></span>;                <span class="comment">//f2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;           <span class="comment">//f3</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">double</span>, <span class="keyword">double</span>=<span class="number">3.14</span>)</span></span>;<span class="comment">//f4</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    f(<span class="number">42</span>, <span class="number">5.6</span>);             <span class="comment">//报错，参数模糊</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>condidate functions: f1, f2, f3, f4</p>
+<p>viable functions: f3, f4</p>
+<p>优先级: 精确匹配的参数个数越多优先级越高，参数个数相同优先级相同，如果存在多个最高优先级的函数，则报参数模糊错误。</p>
+<h2 id="参数类型转换"><a class="markdownIt-Anchor" href="#参数类型转换"></a> 参数类型转换</h2>
+<p>优先级：</p>
+<ol>
+<li>精确匹配：包括类型相同， 数组和参数名转换为指针，忽略顶层const</li>
+<li>const 转换 (把非const实参传给const形参)</li>
+<li>promotion数据提升，如int-&gt;long, char-&gt;unsigned等</li>
+<li>算术转换或者指针类型转换</li>
+<li>类类型(class-type)转换，如string-&gt;bool</li>
+</ol>
+<h3 id="promotion-and-arithmetic-conversion"><a class="markdownIt-Anchor" href="#promotion-and-arithmetic-conversion"></a> Promotion and Arithmetic Conversion</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ff</span><span class="params">(<span class="keyword">int</span>)</span></span>;       <span class="comment">//f1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ff</span><span class="params">(<span class="keyword">short</span>)</span></span>;     <span class="comment">//f2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">manip</span><span class="params">(<span class="keyword">long</span>)</span></span>;   <span class="comment">//f3</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">manip</span><span class="params">(<span class="keyword">float</span>)</span></span>;  <span class="comment">//f4</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ff(<span class="string">&#x27;a&#x27;</span>);        <span class="comment">//调用f1，char-&gt;int是promotionO（比int短的数据类型统一promotion为int），char-&gt;short 是算术转换</span></span><br><span class="line">    manip(<span class="number">3.14</span>);    <span class="comment">//error: ambiguous call，3.14视为double,double-&gt;float和doule-&gt;long在优先级上是等价的</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="const-arguments"><a class="markdownIt-Anchor" href="#const-arguments"></a> const Arguments</h3>
+<p>忽略顶层const, 原因是传参的时候实际上进行的是copy过程，即copy一份实参给形参，copy会忽略顶层const</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a)</span></span>;<span class="comment">//报错，重复定义，两者只能定义一种</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> *a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>* <span class="keyword">const</span> a)</span></span>;<span class="comment">//报错，重复定义，两者只能定义一种</span></span><br></pre></td></tr></table></figure>
+<p>const 转换</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> &amp;)</span></span>;      <span class="comment">//f1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;)</span></span>;<span class="comment">//f2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> a&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> b&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    f(a);           <span class="comment">//调用f2(精确匹配)</span></span><br><span class="line">    f(b);           <span class="comment">//调用f1(没有定义f1时，调用f2)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> &amp;)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    f(i);           <span class="comment">//报错，ambiguous call</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://yujianwuyou.ltd/2021/11/08/62973a26.html" title="C++函数参数匹配" target="_blank" rel="external">http://yujianwuyou.ltd/2021/11/08/62973a26.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/yucongxing" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/basketball.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/yucongxing" target="_blank"><span class="text-dark">郁聪兴</span><small class="ml-1x">Artificial Intelligence &amp; C Plus Plus</small></a></h3>
+        <div>在理想主义和现实注意之间疯狂徘徊而一事无成的废柴。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/11/12/cd504759.html" title="Classes"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/10/17/7f722911.html" title="如何使用hexo发布一篇博客？"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">
+        <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yucongxing" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2022 yucongxing
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
